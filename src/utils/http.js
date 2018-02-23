@@ -18,7 +18,7 @@ function getUrl(path, params) {
   const server = isProd ? '/' : '/api/'
 
   if (path.startsWith('http:')) {
-    return path
+    return path + serialiseObject(params)
   }
 
   return server + path + serialiseObject(params)
@@ -49,7 +49,7 @@ function getHeaders() {
 const http = {
   async get(path, params) {
     const url = getUrl(path, params)
-
+    
     try {
       const response = await axios.get(url)
       const checkedResponse = await checkStatus(response)

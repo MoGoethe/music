@@ -1,12 +1,15 @@
 .header{
-	background-color:#00785A;
+	
 	width:100%;
 	box-sizing:border-box;
-	padding:15px 30px;
+	padding:15px 30px 15px 45px;
 	border-bottom:3px solid #005240;
 	position:fixed;
 	top:0;
 	left:0;
+	z-index:99;
+	background:#00785A url(/static/logo.png) 15px center no-repeat;
+	background-size:30px;
 	.cut-line{
 		font-size: 15px;
 		color: #005240;
@@ -48,6 +51,20 @@
 		}
 		&.active{
 			color: #34D19A;
+		}
+		&.clear-item{
+			&:after,&:before{
+				display: none;
+			}
+		}
+		.back{
+			width:16px;
+			height: 16px;
+			display: inline-block;
+			vertical-align: top;
+			&:hover{
+				color: red;
+			}
 		}
 	}
 }

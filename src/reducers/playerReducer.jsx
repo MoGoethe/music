@@ -1,51 +1,85 @@
-import { GET_ARTICLE_LIST } from "../actions"
-import { fromJS, Map, toJS } from "immutable"
+﻿import { GET_ARTICLE_LIST } from "../actions"
+import { fromJS, List } from "immutable"
 import {
-    TOGGLE_PLAY
+    TOGGLE_PLAY,
+    TOGGLE_MUSIC,
+    SET_PLAY_LIST,
+    ADD_TO_PLAY_LIST,
+    SWITCH_PLAY_MUSIC,
+    TOGGLE_MUTE,
+    TOGGLE_SHOW_PLAYLIST,
+    TOGGLE_LOOP_MODEL,
+    GET_MUSIC_LYC,
+    GET_MUSIC_SRC,
+    SET_AUDIO_CRRENTTIME,
 } from "../actions"
 
 const INITIAL_STATE = fromJS({
-    isPlaying: false, //播放状态
-    isMute: false, //静音
+    isPlaying: false,
+    isMute: false,
+    musicUrl:'',
+    musicLrc:'',
     playList: [{
-        id:523251118,
-        name:"说散就散",
-        alia:"电影《前任3：再见前任》主题曲",
-        picUrl:"http://p1.music.126.net/e50cdn6BVUCFFHpN9RIidA==/109951163081271235.jpg",
-        ar:{
-            id:"10473",
-            name:"袁娅维",
+        id: 185697,
+        name: "花海",
+        alia: "",
+        picUrl: "http://p1.music.126.net/uKR6EQ1dLq4i1UBhXmvXtQ==/721279627833133.jpg",
+        ar: {
+            id: "6452",
+            name: "周杰伦",
         }
-    },{
-        id:526464369,
-        name:"氤氲",
-        alia:"",
-        picUrl: "http://p1.music.126.net/hjBt8ts9iNGSuH0k2XO2Gg==/109951163095111913.jpg",
-        ar:{
-            id:"1080047",
-            name:"宗儒",
-        }
-    },{
-        id:528271287,
-        name:"犴达罕",
-        alia:"",
-        picUrl: "http://p1.music.126.net/xd3UWxrOVrwwMPNQB8RfJw==/109951163101029187.jpg",
-        ar:{
-            id:"1058228",
-            name:"陈鸿宇",
-        }
-    },
-    ],
-    isShowPlayList: false, //播放列表是否展示
-    playingMusicId: 0, //正在播放的音乐，使用数组下标
-    playModel: 0, //播放模式,包括 1：循环    2： 随机    3：单曲循环
+    }],
+    isShowPlayList: false,
+    playingMusicId: 0,
+    loopModel: 1,
 })
 
 const playerState = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case TOGGLE_PLAY:
-            return state.set('isPlaying', !state.get('isPlaying'))
+            return state.set('isPlaying', action.data)
             break
+        case TOGGLE_MUSIC:
+            return state.set('playingMusicId', action.data)
+            break
+        case SET_PLAY_LIST:
+            return state.set('playList', action.data).set("playingMusicId",0)
+            break;
+        case ADD_TO_PLAY_LIST:
+            state.get('playList').map((item) => {
+                let index = action.data.findIndex(r => r.get("id") === item.get("id"))
+                if (index !== -1) {
+                    action.data = action.data.splice(index, 1)
+                }
+            })
+            return state.set('playList', state.get("playList").concat(action.data))
+            break;
+        case SWITCH_PLAY_MUSIC:
+            action.data = action.data.get ? action.data : fromJS(action.data)
+            let index = state.get('playList').findIndex(r => r.get("id") === action.data.get("id"))
+            if(index === -1){
+                return state.set('playList',state.get("playList").concat(List([action.data]))).set('playingMusicId',state.get("playList").size)
+            }else{
+                return state.set('playingMusicId',index)
+            }
+            break;
+        case TOGGLE_MUTE:
+            return state.set("isMute", !state.get("isMute"))
+            break;
+        case TOGGLE_SHOW_PLAYLIST:
+            return state.set("isShowPlayList", !state.get("isShowPlayList"))
+            break;
+        case TOGGLE_LOOP_MODEL:
+            let loopModel = action.data+1 > 3 ? 1 : action.data+1
+            return state.set("loopModel",loopModel)
+            break;
+        case GET_MUSIC_LYC:
+            let lrc = action.data.lrc.lyric || ''
+            return state.set("musicLrc",lrc)
+            break;
+        case GET_MUSIC_SRC:
+            return state.set("musicUrl",action.data)
+            break;
         default:
             return state
     }

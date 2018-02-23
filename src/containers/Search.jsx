@@ -1,11 +1,11 @@
 import React ,{ Component } from "react"
 import { connect } from "react-redux"
+import SearchMain from "../components/SearchMain"
 
 class Search extends Component {
 
     render() {
-    	console.log("Search")
-        return ( <div> Search page </div>)
+        return ( <div className="center"><SearchMain /></div>)
     }
 }
 

@@ -1,16 +1,14 @@
 import React ,{ Component } from "react"
 import { connect } from "react-redux"
+import RankList from "../components/RankList"
 
 class Rank extends Component {
 
     render() {
-    	console.log("rank")
-        return ( <div> Rank </div>)
+        return ( <div className="center">
+        	<RankList />
+        </div>)
     }
 }
 
-const mapStateToProps = state => {
-    return state
-}
-
-export default connect(mapStateToProps)(Rank)
+export default Rank

@@ -1,15 +1,8 @@
 import React ,{ Component } from "react"
-import { connect } from "react-redux"
+import NewAlbum from "../components/NewAlbum"
 
-class New extends Component {
-
-    render() {
-        return ( <div> New page</div>)
-    }
+const New = () => {
+	return ( <div className="center"><NewAlbum /></div>)
 }
 
-const mapStateToProps = state => {
-    return state
-}
-
-export default connect(mapStateToProps)(New)
+export default New

@@ -132,13 +132,13 @@ body {
     width: 100%;
     min-height: 100%;
     background-color: #5BDEAC;
-    min-width: 960px;
+    min-width: 860px;
+
 }
 
 body {
     line-height: 1;
-    padding-bottom: 162px;
-    padding-top:50px;
+    padding:80px 0 200px;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-y: scroll;
@@ -147,4 +147,19 @@ body {
 .center {
     width: 80%;
     margin: 0 auto;
+    max-width: 960px;
+}
+
+.common-list-title{
+    font-size: 18px;
+    color: #fff;
+    padding-bottom: 10px;
+    cursor: default;
+    font-weight: bolder;
+    a {
+        float: right;
+        font-size: 14px;
+        color: #eee;
+        text-decoration: none;
+    }
 }

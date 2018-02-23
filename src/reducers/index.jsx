@@ -1,12 +1,19 @@
-import { combineReducers } from 'redux';
-import todolist from './todos';
-import playerState from './playerReducer';
-import recommendMusicState from './recommendMusicReducer';
+import { combineReducers } from 'redux'
+import searchState from './searchReducer'
+import playerState from './playerReducer'
+import initMusicListState from './initMusicListReducer'
+import listDetailState from './listDetailReducer'
+import rankState from './rankReducer'
+import loadingState from './loadingReducer'
 
 const reducer = combineReducers({
-    todolist,
+    searchState,
     playerState,
-    recommendMusicState
+    initMusicListState,
+    listDetailState,
+    rankState,
+    searchState,
+    loadingState
 });
 
-export default reducer;
+export default reducer
